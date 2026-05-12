@@ -48,33 +48,32 @@
   }
   .stats span { color: #64ffda; font-weight: 600; }
 
+  /* ── Content area: pattern panel | canvas ── */
+  .content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 16px;
+    margin: 8px auto;
+    width: 100%;
+    max-width: 1100px;
+  }
+
   /* ── Pattern Editor ── */
   #patternPanel {
-    max-width: 700px;
-    width: 100%;
-    margin: 0 auto 8px;
-    padding: 16px 20px;
-    background: rgba(18, 18, 26, 0.85);
+    width: 280px;
+    flex-shrink: 0;
+    padding: 16px 18px;
+    background: rgba(18, 18, 26, 0.9);
     backdrop-filter: blur(12px);
     border: 1px solid #1e1e30;
     border-radius: 14px;
     box-shadow: 0 0 30px rgba(83, 109, 254, 0.06);
-    overflow: hidden;
-    max-height: 0;
-    opacity: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-bottom: 0;
-    border-width: 0;
-    transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.4s ease, margin 0.4s ease, border-width 0.4s ease;
+    display: none;
   }
   #patternPanel.visible {
-    max-height: 800px;
-    opacity: 1;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    margin-bottom: 8px;
-    border-width: 1px;
+    display: block;
   }
   .pe-section { margin-bottom: 14px; }
   .pe-section:last-child { margin-bottom: 0; }
@@ -169,14 +168,15 @@
   .pe-preset:hover { background: #1e1e30; border-color: #536dfe; }
   .pe-preview-area {
     display: flex;
-    gap: 14px;
-    align-items: center;
+    flex-direction: column;
+    gap: 8px;
   }
   #previewCanvas {
     border: 1px solid #1e1e30;
     border-radius: 8px;
     background: #0a0a0f;
-    flex-shrink: 0;
+    width: 100%;
+    height: auto;
   }
   .pe-preview-info {
     font-size: 0.75rem;
@@ -187,33 +187,18 @@
     color: #aaa;
     font-family: 'Courier New', monospace;
   }
-  #applyBtn {
-    background: linear-gradient(135deg, #536dfe, #64ffda);
-    color: #0a0a0f;
-    padding: 8px 20px;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-  #applyBtn:hover { transform: scale(1.05); box-shadow: 0 0 16px rgba(83, 109, 254, 0.3); }
-  #applyBtn.applied {
-    background: linear-gradient(135deg, #64ffda, #64ffda);
-    box-shadow: 0 0 12px rgba(100, 255, 218, 0.3);
-  }
 
+  /* ── Canvas area ── */
   #canvas-wrap {
     position: relative;
-    margin: 8px auto;
     border: 1px solid #1a1a2e;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 0 40px rgba(84, 110, 254, 0.08);
+    flex: 1;
+    min-width: 0;
   }
-  canvas {
+  canvas#mainCanvas {
     display: block;
     width: 100%;
     height: auto;
@@ -331,6 +316,11 @@
     font-size: 0.7rem;
     color: #333;
   }
+
+  @media (max-width: 700px) {
+    .content { flex-direction: column; align-items: center; }
+    #patternPanel { width: 100%; max-width: 400px; }
+  }
 </style>
 </head>
 <body>
@@ -344,49 +334,45 @@
   </div>
 </header>
 
-<!-- Pattern Editor Panel -->
-<div id="patternPanel">
-  <!-- Fold Angle -->
-  <div class="pe-section">
-    <span class="pe-label">Fold Angle</span>
-    <div class="pe-row">
-      <input type="range" id="angleSlider" min="1" max="179" value="90" style="flex:1; min-width: 150px;">
-      <span class="pe-angle-val" id="angleVal">90°</span>
-    </div>
-  </div>
-
-  <!-- Turn Sequence -->
-  <div class="pe-section">
-    <span class="pe-label">Turn Sequence</span>
-    <div class="pe-seq-wrap" id="turnSeqWrap"></div>
-  </div>
-
-  <!-- Presets -->
-  <div class="pe-section">
-    <span class="pe-label">Presets</span>
-    <div class="pe-presets" id="presetsRow"></div>
-  </div>
-
-  <!-- Preview + Apply -->
-  <div class="pe-section">
-    <div class="pe-preview-area">
-      <canvas id="previewCanvas" width="360" height="240"></canvas>
-      <div style="flex:1; display:flex; flex-direction:column; justify-content:space-between;">
-        <div class="pe-preview-info">
-          <div>Preview @ iter 4</div>
-          <div class="pe-detail" id="previewDetail">Angle: 90° | Seq: [R]</div>
-        </div>
-        <button id="applyBtn">Apply →</button>
+<!-- Content: pattern panel + canvas side by side -->
+<div class="content">
+  <!-- Pattern Editor (left) -->
+  <div id="patternPanel">
+    <div class="pe-section">
+      <span class="pe-label">Fold Angle</span>
+      <div class="pe-row">
+        <input type="range" id="angleSlider" min="1" max="179" value="90" style="flex:1; min-width: 120px;">
+        <span class="pe-angle-val" id="angleVal">90°</span>
       </div>
     </div>
+
+    <div class="pe-section">
+      <span class="pe-label">Turn Sequence</span>
+      <div class="pe-seq-wrap" id="turnSeqWrap"></div>
+    </div>
+
+    <div class="pe-section">
+      <span class="pe-label">Presets</span>
+      <div class="pe-presets" id="presetsRow"></div>
+    </div>
+
+    <div class="pe-section">
+      <div class="pe-preview-area">
+        <canvas id="previewCanvas" width="244" height="162"></canvas>
+        <div class="pe-preview-info">
+          <div class="pe-detail" id="previewDetail">Angle: 90° | Seq: [R]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Canvas (right) -->
+  <div id="canvas-wrap">
+    <canvas id="mainCanvas"></canvas>
   </div>
 </div>
 
 <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-
-<div id="canvas-wrap">
-  <canvas id="canvas"></canvas>
-</div>
 
 <div class="controls">
   <div class="control-group">
@@ -414,7 +400,7 @@
 
 <script>
 (() => {
-  const canvas = document.getElementById('canvas');
+  const canvas = document.getElementById('mainCanvas');
   const ctx = canvas.getContext('2d');
   const wrap = document.getElementById('canvas-wrap');
 
@@ -430,7 +416,7 @@
   const drawBtn = document.getElementById('drawBtn');
   const resetBtn = document.getElementById('resetBtn');
 
-  // Pattern editor elements
+  // Pattern editor
   const patternPanel = document.getElementById('patternPanel');
   const patternToggle = document.getElementById('patternToggle');
   const angleSlider = document.getElementById('angleSlider');
@@ -440,20 +426,16 @@
   const previewCanvas = document.getElementById('previewCanvas');
   const previewCtx = previewCanvas.getContext('2d');
   const previewDetail = document.getElementById('previewDetail');
-  const applyBtn = document.getElementById('applyBtn');
 
   let animId = null;
   let turns = [];
   let fullSegments = [];
 
-  // Pattern state
+  // Pattern state — single source of truth (no separate applied/base split)
   let patternMode = false;
   let foldAngle = 90;
-  let baseTurns = [1]; // 1 = right, -1 = left
-  let appliedAngle = 90;
-  let appliedBaseTurns = [1];
+  let baseTurns = [1]; // 1=right, -1=left
 
-  // Presets
   const presets = [
     { name: '🐉 Dragon', angle: 90, turns: [1] },
     { name: '🌿 Fern', angle: 60, turns: [1, -1] },
@@ -462,17 +444,19 @@
   ];
 
   function resizeCanvas() {
-    const w = Math.min(window.innerWidth - 32, 800);
-    const h = Math.min(w, 600);
+    const mainArea = document.querySelector('.content');
+    if (!mainArea) return;
+    const wrapRect = wrap.getBoundingClientRect();
+    const w = Math.min(window.innerWidth - (patternMode ? 340 : 48), 800);
+    const h = Math.min(w * 0.75, 600);
     canvas.width = w * 2;
     canvas.height = h * 2;
     canvas.style.width = w + 'px';
     canvas.style.height = h + 'px';
     wrap.style.width = w + 'px';
-    wrap.style.maxWidth = '100%';
   }
 
-  function computeTurns(n, baseSeq, angle) {
+  function computeTurns(n, baseSeq) {
     const t = [];
     for (let i = 0; i < n; i++) {
       const prev = t.slice();
@@ -620,7 +604,8 @@
       }
 
       idx = end;
-      iterDisplay.textContent = Math.min(turns.length, Math.floor((idx / total) * turns.length));
+      const currentIter = Math.min(turns.length, Math.floor((idx / total) * turns.length));
+      iterDisplay.textContent = currentIter;
       segDisplay.textContent = idx.toLocaleString();
       progressFill.style.width = ((idx / total) * 100).toFixed(1) + '%';
 
@@ -637,9 +622,9 @@
     animId = requestAnimationFrame(frame);
   }
 
-  // ── Preview drawing ──
-  function drawPreview(angle, turns) {
-    const segs = computeSegments(computeTurns(4, turns, angle), angle);
+  // ── Preview ──
+  function drawPreview(angle, tArr) {
+    const segs = computeSegments(computeTurns(4, tArr), angle);
     const b = getBounds(segs);
     const pad = 10;
     const w = previewCanvas.width - pad * 2;
@@ -663,10 +648,10 @@
     }
     previewCtx.stroke();
 
-    previewDetail.textContent = `Angle: ${angle}° | Seq: [${turns.map(t => t === 1 ? 'R' : 'L').join(', ')}]`;
+    previewDetail.textContent = `Angle: ${angle}° | Seq: [${tArr.map(t => t === 1 ? 'R' : 'L').join(', ')}]`;
   }
 
-  // ── Turn sequence rendering ──
+  // ── Turn sequence ──
   function renderTurnSequence() {
     turnSeqWrap.innerHTML = '';
     baseTurns.forEach((t, i) => {
@@ -677,11 +662,11 @@
         baseTurns[i] = baseTurns[i] === 1 ? -1 : 1;
         renderTurnSequence();
         updatePreview();
+        autoApply();
       });
       turnSeqWrap.appendChild(btn);
     });
 
-    // Add button
     const addBtn = document.createElement('button');
     addBtn.className = 'pe-add';
     addBtn.textContent = '+';
@@ -689,10 +674,10 @@
       baseTurns.push(1);
       renderTurnSequence();
       updatePreview();
+      autoApply();
     });
     turnSeqWrap.appendChild(addBtn);
 
-    // Remove button
     if (baseTurns.length > 1) {
       const removeBtn = document.createElement('button');
       removeBtn.className = 'pe-remove';
@@ -701,12 +686,13 @@
         baseTurns.pop();
         renderTurnSequence();
         updatePreview();
+        autoApply();
       });
       turnSeqWrap.appendChild(removeBtn);
     }
   }
 
-  // ── Presets rendering ──
+  // ── Presets ──
   function renderPresets() {
     presetsRow.innerHTML = '';
     presets.forEach(p => {
@@ -720,14 +706,32 @@
         angleVal.textContent = foldAngle + '°';
         renderTurnSequence();
         updatePreview();
+        autoApply();
       });
       presetsRow.appendChild(btn);
     });
   }
 
-  // ── Preview update ──
   function updatePreview() {
     drawPreview(foldAngle, baseTurns);
+  }
+
+  // ── Auto-apply: redraw main canvas when pattern changes ──
+  function autoApply() {
+    if (!patternMode) return;
+    const iter = parseInt(iterSlider.value);
+    const color = colorPicker.value;
+    const angle = foldAngle;
+    const baseSeq = baseTurns;
+
+    turns = computeTurns(iter, baseSeq);
+    fullSegments = computeSegments(turns, angle);
+    angleDisplay.textContent = angle;
+    segDisplay.textContent = fullSegments.length.toLocaleString();
+    iterDisplay.textContent = turns.length;
+    progressFill.style.width = '100%';
+
+    drawStatic(fullSegments, color);
   }
 
   // ── Pattern toggle ──
@@ -736,7 +740,6 @@
     patternPanel.classList.toggle('visible', patternMode);
     patternToggle.classList.toggle('active', patternMode);
     if (!patternMode) {
-      // Revert to defaults
       foldAngle = 90;
       baseTurns = [1];
       angleSlider.value = 90;
@@ -744,6 +747,14 @@
       renderTurnSequence();
       updatePreview();
       angleDisplay.textContent = '90';
+    }
+    resizeCanvas();
+    // Auto-draw when entering pattern mode
+    if (patternMode) {
+      autoApply();
+    } else {
+      // Redraw default dragon
+      start();
     }
   });
 
@@ -754,20 +765,7 @@
     updatePreview();
   });
 
-  // ── Apply button ──
-  applyBtn.addEventListener('click', () => {
-    appliedAngle = foldAngle;
-    appliedBaseTurns = baseTurns.slice();
-    angleDisplay.textContent = appliedAngle;
-    applyBtn.classList.add('applied');
-    applyBtn.textContent = '✓ Applied';
-    setTimeout(() => {
-      applyBtn.classList.remove('applied');
-      applyBtn.textContent = 'Apply →';
-    }, 1500);
-  });
-
-  // ── Init pattern editor ──
+  // ── Init ──
   renderTurnSequence();
   renderPresets();
   updatePreview();
@@ -776,11 +774,11 @@
     const iter = parseInt(iterSlider.value);
     const speed = parseInt(speedSlider.value);
     const color = colorPicker.value;
-    const angle = patternMode ? appliedAngle : 90;
-    const baseSeq = patternMode ? appliedBaseTurns : [1];
+    const angle = patternMode ? foldAngle : 90;
+    const baseSeq = patternMode ? baseTurns : [1];
 
     clear();
-    turns = computeTurns(iter, baseSeq, angle);
+    turns = computeTurns(iter, baseSeq);
     fullSegments = computeSegments(turns, angle);
 
     angleDisplay.textContent = angle;
@@ -798,12 +796,14 @@
     clear();
     iterDisplay.textContent = '0';
     segDisplay.textContent = '0';
-    angleDisplay.textContent = patternMode ? appliedAngle : '90';
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    angleDisplay.textContent = patternMode ? foldAngle : '90';
   });
 
   window.addEventListener('resize', resizeCanvas);
   resizeCanvas();
+
+  // Auto-draw on page load
+  start();
 })();
 </script>
 </body>
