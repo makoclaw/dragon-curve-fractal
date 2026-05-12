@@ -18,11 +18,11 @@
   }
   header {
     text-align: center;
-    padding: 24px 16px 12px;
+    padding: 20px 16px 10px;
     width: 100%;
   }
   h1 {
-    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    font-size: clamp(1.3rem, 4vw, 2.2rem);
     font-weight: 700;
     background: linear-gradient(135deg, #64ffda, #536dfe, #ff6ec7);
     background-size: 200% 200%;
@@ -35,20 +35,16 @@
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
   }
-  .subtitle {
-    font-size: 0.9rem;
-    color: #888;
-    margin-top: 4px;
-  }
+  .subtitle { font-size: 0.85rem; color: #888; margin-top: 4px; }
   .stats {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #aaa;
     margin-top: 6px;
     font-family: 'Courier New', monospace;
   }
   .stats span { color: #64ffda; font-weight: 600; }
 
-  /* ── Content area: pattern panel | canvas ── */
+  /* ── Content area: side-by-side on desktop ── */
   .content {
     display: flex;
     flex-direction: row;
@@ -58,65 +54,49 @@
     margin: 8px auto;
     width: 100%;
     max-width: 1100px;
+    padding: 0 8px;
   }
 
   /* ── Pattern Editor ── */
   #patternPanel {
-    width: 280px;
+    width: 260px;
     flex-shrink: 0;
-    padding: 16px 18px;
-    background: rgba(18, 18, 26, 0.9);
+    padding: 14px 16px;
+    background: rgba(18, 18, 26, 0.92);
     backdrop-filter: blur(12px);
     border: 1px solid #1e1e30;
     border-radius: 14px;
     box-shadow: 0 0 30px rgba(83, 109, 254, 0.06);
     display: none;
   }
-  #patternPanel.visible {
-    display: block;
-  }
-  .pe-section { margin-bottom: 14px; }
+  #patternPanel.visible { display: block; }
+
+  .pe-section { margin-bottom: 12px; }
   .pe-section:last-child { margin-bottom: 0; }
   .pe-label {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 1px;
     color: #666;
     margin-bottom: 6px;
     display: block;
   }
-  .pe-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
+  .pe-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .pe-angle-val {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: #64ffda;
     font-family: 'Courier New', monospace;
-    min-width: 42px;
+    min-width: 40px;
     text-align: center;
   }
-  .pe-seq-wrap {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
+  .pe-seq-wrap { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
   .pe-turn {
-    width: 40px;
-    height: 36px;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.15s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 38px; height: 34px;
+    border: none; border-radius: 7px;
+    font-size: 0.8rem; font-weight: 700;
+    cursor: pointer; transition: all 0.15s;
+    display: flex; align-items: center; justify-content: center;
     font-family: 'Courier New', monospace;
   }
   .pe-turn.right {
@@ -132,61 +112,30 @@
   }
   .pe-turn.left:hover { background: rgba(100, 255, 218, 0.25); }
   .pe-add, .pe-remove {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 700;
+    width: 34px; height: 34px;
+    border-radius: 7px; font-size: 1rem; font-weight: 700;
     cursor: pointer;
-    border: 1px solid #2a2a40;
-    background: #1e1e30;
-    color: #e0e0e0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border: 1px solid #2a2a40; background: #1e1e30; color: #e0e0e0;
+    display: flex; align-items: center; justify-content: center;
     transition: all 0.15s;
   }
   .pe-add:hover { background: #2a2a40; border-color: #536dfe; }
   .pe-remove:hover { background: #2a2a40; border-color: #ff6ec7; }
-  .pe-presets {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
+  .pe-presets { display: flex; gap: 6px; flex-wrap: wrap; }
   .pe-preset {
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    cursor: pointer;
-    border: 1px solid #1e1e30;
-    background: #12121a;
-    color: #e0e0e0;
-    transition: all 0.15s;
-    white-space: nowrap;
+    padding: 5px 10px; border-radius: 7px;
+    font-size: 0.75rem; font-weight: 600; cursor: pointer;
+    border: 1px solid #1e1e30; background: #12121a; color: #e0e0e0;
+    transition: all 0.15s; white-space: nowrap;
   }
   .pe-preset:hover { background: #1e1e30; border-color: #536dfe; }
-  .pe-preview-area {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+  .pe-preview-area { display: flex; flex-direction: column; gap: 6px; }
   #previewCanvas {
-    border: 1px solid #1e1e30;
-    border-radius: 8px;
-    background: #0a0a0f;
-    width: 100%;
-    height: auto;
+    border: 1px solid #1e1e30; border-radius: 8px;
+    background: #0a0a0f; width: 100%; height: auto;
   }
-  .pe-preview-info {
-    font-size: 0.75rem;
-    color: #666;
-    line-height: 1.5;
-  }
-  .pe-preview-info .pe-detail {
-    color: #aaa;
-    font-family: 'Courier New', monospace;
-  }
+  .pe-preview-info { font-size: 0.7rem; color: #666; line-height: 1.5; }
+  .pe-preview-info .pe-detail { color: #aaa; font-family: 'Courier New', monospace; }
 
   /* ── Canvas area ── */
   #canvas-wrap {
@@ -197,12 +146,17 @@
     box-shadow: 0 0 40px rgba(84, 110, 254, 0.08);
     flex: 1;
     min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   canvas#mainCanvas {
     display: block;
     width: 100%;
     height: auto;
   }
+
+  /* ── Bottom controls ── */
   .controls {
     display: flex;
     flex-wrap: wrap;
@@ -224,102 +178,82 @@
     min-width: 120px;
   }
   label {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 1px;
     color: #666;
   }
   input[type="range"] {
     -webkit-appearance: none;
-    width: 120px;
-    height: 6px;
-    border-radius: 3px;
-    background: #1e1e30;
-    outline: none;
+    width: 120px; height: 6px;
+    border-radius: 3px; background: #1e1e30; outline: none;
   }
   input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: #536dfe;
-    cursor: pointer;
+    width: 18px; height: 18px;
+    border-radius: 50%; background: #536dfe; cursor: pointer;
     box-shadow: 0 0 8px rgba(83, 109, 254, 0.4);
   }
   input[type="color"] {
     -webkit-appearance: none;
-    width: 40px;
-    height: 32px;
-    border: 2px solid #1e1e30;
-    border-radius: 8px;
-    cursor: pointer;
-    background: none;
-    padding: 2px;
+    width: 40px; height: 32px;
+    border: 2px solid #1e1e30; border-radius: 8px;
+    cursor: pointer; background: none; padding: 2px;
   }
   input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
   input[type="color"]::-webkit-color-swatch { border: none; border-radius: 5px; }
   .val {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #e0e0e0;
+    font-size: 0.85rem; font-weight: 600; color: #e0e0e0;
     font-family: 'Courier New', monospace;
   }
   button {
-    padding: 10px 24px;
-    border: none;
-    border-radius: 10px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
+    padding: 10px 24px; border: none; border-radius: 10px;
+    font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
   }
   #patternToggle {
-    background: #1e1e30;
-    color: #e0e0e0;
-    border: 1px solid #2a2a40;
+    background: #1e1e30; color: #e0e0e0; border: 1px solid #2a2a40;
   }
   #patternToggle.active {
-    background: rgba(83, 109, 254, 0.2);
-    border-color: #536dfe;
-    color: #536dfe;
+    background: rgba(83, 109, 254, 0.2); border-color: #536dfe; color: #536dfe;
   }
   #patternToggle:hover { background: #2a2a40; }
   #drawBtn {
-    background: linear-gradient(135deg, #536dfe, #64ffda);
-    color: #0a0a0f;
+    background: linear-gradient(135deg, #536dfe, #64ffda); color: #0a0a0f;
   }
   #drawBtn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(83, 109, 254, 0.3); }
   #drawBtn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
   #resetBtn {
-    background: #1e1e30;
-    color: #e0e0e0;
-    border: 1px solid #2a2a40;
+    background: #1e1e30; color: #e0e0e0; border: 1px solid #2a2a40;
   }
   #resetBtn:hover { background: #2a2a40; }
   .progress-bar {
-    width: 100%;
-    height: 3px;
-    background: #12121a;
-    margin: 0 16px 8px;
-    max-width: 700px;
-    border-radius: 2px;
-    overflow: hidden;
+    width: 100%; height: 3px; background: #12121a;
+    margin: 0 16px 8px; max-width: 700px; border-radius: 2px; overflow: hidden;
   }
   .progress-fill {
-    height: 100%;
-    width: 0%;
+    height: 100%; width: 0%;
     background: linear-gradient(90deg, #536dfe, #64ffda);
     transition: width 0.1s linear;
   }
-  footer {
-    padding: 8px;
-    font-size: 0.7rem;
-    color: #333;
-  }
+  footer { padding: 8px; font-size: 0.7rem; color: #333; }
 
-  @media (max-width: 700px) {
-    .content { flex-direction: column; align-items: center; }
-    #patternPanel { width: 100%; max-width: 400px; }
+  /* ── Mobile: stack vertically, canvas first ── */
+  @media (max-width: 750px) {
+    .content {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    #canvas-wrap {
+      width: 96vw !important;
+      max-width: 400px;
+      order: 1;
+    }
+    #patternPanel {
+      width: 96vw !important;
+      max-width: 400px;
+      order: 2;
+    }
   }
 </style>
 </head>
@@ -334,9 +268,8 @@
   </div>
 </header>
 
-<!-- Content: pattern panel + canvas side by side -->
 <div class="content">
-  <!-- Pattern Editor (left) -->
+  <!-- Pattern Editor -->
   <div id="patternPanel">
     <div class="pe-section">
       <span class="pe-label">Fold Angle</span>
@@ -345,20 +278,17 @@
         <span class="pe-angle-val" id="angleVal">90°</span>
       </div>
     </div>
-
     <div class="pe-section">
       <span class="pe-label">Turn Sequence</span>
       <div class="pe-seq-wrap" id="turnSeqWrap"></div>
     </div>
-
     <div class="pe-section">
       <span class="pe-label">Presets</span>
       <div class="pe-presets" id="presetsRow"></div>
     </div>
-
     <div class="pe-section">
       <div class="pe-preview-area">
-        <canvas id="previewCanvas" width="244" height="162"></canvas>
+        <canvas id="previewCanvas" width="228" height="152"></canvas>
         <div class="pe-preview-info">
           <div class="pe-detail" id="previewDetail">Angle: 90° | Seq: [R]</div>
         </div>
@@ -366,7 +296,7 @@
     </div>
   </div>
 
-  <!-- Canvas (right) -->
+  <!-- Canvas -->
   <div id="canvas-wrap">
     <canvas id="mainCanvas"></canvas>
   </div>
@@ -411,7 +341,7 @@
   const speedVal = document.getElementById('speedVal');
   const iterDisplay = document.getElementById('iterDisplay');
   const segDisplay = document.getElementById('segDisplay');
-  const angleDisplay = document.getElementById('angleDisplay');
+  const angleDisplayEl = document.getElementById('angleDisplay');
   const progressFill = document.getElementById('progressFill');
   const drawBtn = document.getElementById('drawBtn');
   const resetBtn = document.getElementById('resetBtn');
@@ -431,10 +361,10 @@
   let turns = [];
   let fullSegments = [];
 
-  // Pattern state — single source of truth (no separate applied/base split)
+  // Single source of truth for pattern
   let patternMode = false;
   let foldAngle = 90;
-  let baseTurns = [1]; // 1=right, -1=left
+  let baseTurns = [1];
 
   const presets = [
     { name: '🐉 Dragon', angle: 90, turns: [1] },
@@ -443,12 +373,30 @@
     { name: '🔀 Zigzag', angle: 90, turns: [1, 1, -1] },
   ];
 
+  // ── Canvas sizing ──
   function resizeCanvas() {
-    const mainArea = document.querySelector('.content');
-    if (!mainArea) return;
-    const wrapRect = wrap.getBoundingClientRect();
-    const w = Math.min(window.innerWidth - (patternMode ? 340 : 48), 800);
-    const h = Math.min(w * 0.75, 600);
+    const vw = window.innerWidth;
+    const isMobile = vw <= 750;
+    const isPanelVisible = patternPanel.classList.contains('visible');
+    let w, h;
+
+    if (isMobile) {
+      // Mobile: canvas gets generous width, fixed aspect
+      w = Math.min(vw * 0.92, 400);
+      h = Math.round(w * 0.75);
+    } else if (isPanelVisible) {
+      // Desktop with panel: canvas takes remaining width
+      w = Math.min(vw - 320, 800);
+      h = Math.min(w * 0.75, 560);
+    } else {
+      // Desktop no panel: centered large canvas
+      w = Math.min(vw - 48, 800);
+      h = Math.min(w * 0.75, 600);
+    }
+
+    w = Math.max(280, w);
+    h = Math.max(200, h);
+
     canvas.width = w * 2;
     canvas.height = h * 2;
     canvas.style.width = w + 'px';
@@ -456,6 +404,7 @@
     wrap.style.width = w + 'px';
   }
 
+  // ── Curve math ──
   function computeTurns(n, baseSeq) {
     const t = [];
     for (let i = 0; i < n; i++) {
@@ -469,8 +418,7 @@
 
   function computeSegments(turnsArr, angleDeg) {
     const segs = [];
-    let x = 0, y = 0;
-    let angle = 0; // radians, 0 = right
+    let x = 0, y = 0, angle = 0;
     const rad = angleDeg * Math.PI / 180;
     let x2 = x + 1, y2 = y;
     segs.push({ x1: x, y1: y, x2, y2 });
@@ -488,23 +436,20 @@
   function getBounds(segs) {
     let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
     for (const s of segs) {
-      if (s.x1 < minX) minX = s.x1;
-      if (s.y1 < minY) minY = s.y1;
-      if (s.x2 < minX) minX = s.x2;
-      if (s.y2 < minY) minY = s.y2;
-      if (s.x1 > maxX) maxX = s.x1;
-      if (s.y1 > maxY) maxY = s.y1;
-      if (s.x2 > maxX) maxX = s.x2;
-      if (s.y2 > maxY) maxY = s.y2;
+      if (s.x1 < minX) minX = s.x1; if (s.y1 < minY) minY = s.y1;
+      if (s.x2 < minX) minX = s.x2; if (s.y2 < minY) minY = s.y2;
+      if (s.x1 > maxX) maxX = s.x1; if (s.y1 > maxY) maxY = s.y1;
+      if (s.x2 > maxX) maxX = s.x2; if (s.y2 > maxY) maxY = s.y2;
     }
     return { minX, minY, maxX, maxY };
   }
 
   function hexToRgb(hex) {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    return { r, g, b };
+    return {
+      r: parseInt(hex.slice(1, 3), 16),
+      g: parseInt(hex.slice(3, 5), 16),
+      b: parseInt(hex.slice(5, 7), 16),
+    };
   }
 
   function clear() {
@@ -514,7 +459,9 @@
     progressFill.style.width = '0%';
   }
 
+  // ── Drawing ──
   function drawStatic(segs, color) {
+    clear();
     const b = getBounds(segs);
     const pad = 20;
     const w = canvas.width - pad * 2;
@@ -566,9 +513,10 @@
     function frame() {
       const end = Math.min(idx + segsPerFrame, total);
 
+      // Redraw completed portion dim
       if (idx > 0) {
         ctx.shadowBlur = 0;
-        ctx.strokeStyle = `rgba(${rgb.r},${rgb.g},${rgb.b},0.3)`;
+        ctx.strokeStyle = `rgba(${rgb.r},${rgb.g},${rgb.b},0.25)`;
         ctx.beginPath();
         for (let i = 0; i < idx; i++) {
           const s = segs[i];
@@ -578,6 +526,7 @@
         ctx.stroke();
       }
 
+      // Draw active portion bright
       ctx.shadowColor = `rgba(${rgb.r},${rgb.g},${rgb.b},0.7)`;
       ctx.shadowBlur = 8;
       ctx.strokeStyle = color;
@@ -590,6 +539,7 @@
       ctx.stroke();
       ctx.shadowBlur = 0;
 
+      // Glow tip
       if (end < total) {
         const tip = segs[end - 1] || segs[0];
         const cx = tip.x2 * scale + offX;
@@ -604,8 +554,7 @@
       }
 
       idx = end;
-      const currentIter = Math.min(turns.length, Math.floor((idx / total) * turns.length));
-      iterDisplay.textContent = currentIter;
+      iterDisplay.textContent = Math.min(turns.length, Math.floor((idx / total) * turns.length));
       segDisplay.textContent = idx.toLocaleString();
       progressFill.style.width = ((idx / total) * 100).toFixed(1) + '%';
 
@@ -626,7 +575,7 @@
   function drawPreview(angle, tArr) {
     const segs = computeSegments(computeTurns(4, tArr), angle);
     const b = getBounds(segs);
-    const pad = 10;
+    const pad = 8;
     const w = previewCanvas.width - pad * 2;
     const h = previewCanvas.height - pad * 2;
     const rangeX = b.maxX - b.minX || 1;
@@ -651,7 +600,7 @@
     previewDetail.textContent = `Angle: ${angle}° | Seq: [${tArr.map(t => t === 1 ? 'R' : 'L').join(', ')}]`;
   }
 
-  // ── Turn sequence ──
+  // ── Turn sequence UI ──
   function renderTurnSequence() {
     turnSeqWrap.innerHTML = '';
     baseTurns.forEach((t, i) => {
@@ -716,7 +665,7 @@
     drawPreview(foldAngle, baseTurns);
   }
 
-  // ── Auto-apply: redraw main canvas when pattern changes ──
+  // ── Auto-apply: compute and draw on main canvas (static, instant) ──
   function autoApply() {
     if (!patternMode) return;
     const iter = parseInt(iterSlider.value);
@@ -726,7 +675,7 @@
 
     turns = computeTurns(iter, baseSeq);
     fullSegments = computeSegments(turns, angle);
-    angleDisplay.textContent = angle;
+    angleDisplayEl.textContent = angle;
     segDisplay.textContent = fullSegments.length.toLocaleString();
     iterDisplay.textContent = turns.length;
     progressFill.style.width = '100%';
@@ -734,42 +683,7 @@
     drawStatic(fullSegments, color);
   }
 
-  // ── Pattern toggle ──
-  patternToggle.addEventListener('click', () => {
-    patternMode = !patternMode;
-    patternPanel.classList.toggle('visible', patternMode);
-    patternToggle.classList.toggle('active', patternMode);
-    if (!patternMode) {
-      foldAngle = 90;
-      baseTurns = [1];
-      angleSlider.value = 90;
-      angleVal.textContent = '90°';
-      renderTurnSequence();
-      updatePreview();
-      angleDisplay.textContent = '90';
-    }
-    resizeCanvas();
-    // Auto-draw when entering pattern mode
-    if (patternMode) {
-      autoApply();
-    } else {
-      // Redraw default dragon
-      start();
-    }
-  });
-
-  // ── Angle slider ──
-  angleSlider.addEventListener('input', () => {
-    foldAngle = parseInt(angleSlider.value);
-    angleVal.textContent = foldAngle + '°';
-    updatePreview();
-  });
-
-  // ── Init ──
-  renderTurnSequence();
-  renderPresets();
-  updatePreview();
-
+  // ── Main draw (animated) ──
   function start() {
     const iter = parseInt(iterSlider.value);
     const speed = parseInt(speedSlider.value);
@@ -781,13 +695,45 @@
     turns = computeTurns(iter, baseSeq);
     fullSegments = computeSegments(turns, angle);
 
-    angleDisplay.textContent = angle;
+    angleDisplayEl.textContent = angle;
     segDisplay.textContent = '0';
     iterDisplay.textContent = '0';
     progressFill.style.width = '0%';
 
     animateDraw(fullSegments, color, speed);
   }
+
+  // ── Pattern toggle ──
+  patternToggle.addEventListener('click', () => {
+    patternMode = !patternMode;
+    patternPanel.classList.toggle('visible', patternMode);
+    patternToggle.classList.toggle('active', patternMode);
+    resizeCanvas();
+
+    if (patternMode) {
+      // Entering pattern mode: show current pattern on canvas
+      autoApply();
+    } else {
+      // Exiting: keep using current foldAngle/baseTurns (don't reset)
+      // Just redraw with those settings
+      start();
+    }
+  });
+
+  // ── Angle slider ──
+  let redrawTimer = null;
+  angleSlider.addEventListener('input', () => {
+    foldAngle = parseInt(angleSlider.value);
+    angleVal.textContent = foldAngle + '°';
+    updatePreview();
+    clearTimeout(redrawTimer);
+    redrawTimer = setTimeout(() => autoApply(), 150);
+  });
+
+  // ── Init ──
+  renderTurnSequence();
+  renderPresets();
+  updatePreview();
 
   iterSlider.addEventListener('input', () => { iterVal.textContent = iterSlider.value; });
   speedSlider.addEventListener('input', () => { speedVal.textContent = speedSlider.value; });
@@ -796,10 +742,10 @@
     clear();
     iterDisplay.textContent = '0';
     segDisplay.textContent = '0';
-    angleDisplay.textContent = patternMode ? foldAngle : '90';
+    angleDisplayEl.textContent = patternMode ? foldAngle : '90';
   });
 
-  window.addEventListener('resize', resizeCanvas);
+  window.addEventListener('resize', () => { resizeCanvas(); start(); });
   resizeCanvas();
 
   // Auto-draw on page load
