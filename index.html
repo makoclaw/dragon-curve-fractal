@@ -12,17 +12,57 @@
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    overflow-x: hidden;
+    overflow: hidden;
   }
-  header {
-    text-align: center;
-    padding: 24px 16px 12px;
+
+  /* ── Main layout: side-by-side ── */
+  .app {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 16px;
+    max-width: 1400px;
     width: 100%;
+    height: 100vh;
   }
-  h1 {
-    font-size: clamp(1.4rem, 4vw, 2.2rem);
+
+  /* ── Sidebar (Pattern + Controls) ── */
+  .sidebar {
+    width: 300px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .panel {
+    background: rgba(18, 18, 26, 0.9);
+    backdrop-filter: blur(12px);
+    border: 1px solid #1e1e30;
+    border-radius: 14px;
+    padding: 16px 18px;
+    box-shadow: 0 0 30px rgba(83, 109, 254, 0.06);
+  }
+
+  .panel h2 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #536dfe;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+
+  /* ── Header / Title ── */
+  .title-block { text-align: center; }
+  .title-block h1 {
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
     font-weight: 700;
     background: linear-gradient(135deg, #64ffda, #536dfe, #ff6ec7);
     background-size: 200% 200%;
@@ -35,13 +75,9 @@
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
   }
-  .subtitle {
-    font-size: 0.9rem;
-    color: #888;
-    margin-top: 4px;
-  }
+  .subtitle { font-size: 0.75rem; color: #888; margin-top: 2px; }
   .stats {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     color: #aaa;
     margin-top: 6px;
     font-family: 'Courier New', monospace;
@@ -49,37 +85,10 @@
   .stats span { color: #64ffda; font-weight: 600; }
 
   /* ── Pattern Editor ── */
-  #patternPanel {
-    max-width: 700px;
-    width: 100%;
-    margin: 0 auto 8px;
-    padding: 16px 20px;
-    background: rgba(18, 18, 26, 0.85);
-    backdrop-filter: blur(12px);
-    border: 1px solid #1e1e30;
-    border-radius: 14px;
-    box-shadow: 0 0 30px rgba(83, 109, 254, 0.06);
-    overflow: hidden;
-    max-height: 0;
-    opacity: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-bottom: 0;
-    border-width: 0;
-    transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.4s ease, margin 0.4s ease, border-width 0.4s ease;
-  }
-  #patternPanel.visible {
-    max-height: 800px;
-    opacity: 1;
-    padding-top: 16px;
-    padding-bottom: 16px;
-    margin-bottom: 8px;
-    border-width: 1px;
-  }
-  .pe-section { margin-bottom: 14px; }
+  .pe-section { margin-bottom: 12px; }
   .pe-section:last-child { margin-bottom: 0; }
   .pe-label {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 1px;
     color: #666;
@@ -89,29 +98,29 @@
   .pe-row {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     flex-wrap: wrap;
   }
   .pe-angle-val {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: #64ffda;
     font-family: 'Courier New', monospace;
-    min-width: 42px;
+    min-width: 40px;
     text-align: center;
   }
   .pe-seq-wrap {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     flex-wrap: wrap;
   }
   .pe-turn {
-    width: 40px;
-    height: 36px;
+    width: 38px;
+    height: 34px;
     border: none;
-    border-radius: 8px;
-    font-size: 0.85rem;
+    border-radius: 7px;
+    font-size: 0.8rem;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.15s;
@@ -133,10 +142,10 @@
   }
   .pe-turn.left:hover { background: rgba(100, 255, 218, 0.25); }
   .pe-add, .pe-remove {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    font-size: 1.1rem;
+    width: 34px;
+    height: 34px;
+    border-radius: 7px;
+    font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
     border: 1px solid #2a2a40;
@@ -151,13 +160,13 @@
   .pe-remove:hover { background: #2a2a40; border-color: #ff6ec7; }
   .pe-presets {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     flex-wrap: wrap;
   }
   .pe-preset {
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-size: 0.8rem;
+    padding: 5px 10px;
+    border-radius: 7px;
+    font-size: 0.75rem;
     font-weight: 600;
     cursor: pointer;
     border: 1px solid #1e1e30;
@@ -167,19 +176,22 @@
     white-space: nowrap;
   }
   .pe-preset:hover { background: #1e1e30; border-color: #536dfe; }
+
+  /* ── Preview ── */
   .pe-preview-area {
     display: flex;
-    gap: 14px;
-    align-items: center;
+    flex-direction: column;
+    gap: 8px;
   }
   #previewCanvas {
     border: 1px solid #1e1e30;
     border-radius: 8px;
     background: #0a0a0f;
-    flex-shrink: 0;
+    width: 100%;
+    height: auto;
   }
   .pe-preview-info {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: #666;
     line-height: 1.5;
   }
@@ -187,75 +199,66 @@
     color: #aaa;
     font-family: 'Courier New', monospace;
   }
-  #applyBtn {
-    background: linear-gradient(135deg, #536dfe, #64ffda);
-    color: #0a0a0f;
-    padding: 8px 20px;
-    border: none;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-  #applyBtn:hover { transform: scale(1.05); box-shadow: 0 0 16px rgba(83, 109, 254, 0.3); }
-  #applyBtn.applied {
-    background: linear-gradient(135deg, #64ffda, #64ffda);
-    box-shadow: 0 0 12px rgba(100, 255, 218, 0.3);
-  }
 
+  /* ── Main canvas area ── */
+  .main-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+  }
   #canvas-wrap {
     position: relative;
-    margin: 8px auto;
     border: 1px solid #1a1a2e;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 0 40px rgba(84, 110, 254, 0.08);
   }
-  canvas {
+  canvas#canvas {
     display: block;
     width: 100%;
     height: auto;
   }
-  .controls {
+
+  /* ── Bottom controls ── */
+  .controls-row {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 12px;
-    padding: 12px 16px 24px;
-    max-width: 700px;
-    width: 100%;
+    padding: 10px 0 0;
   }
   .control-group {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 4px;
-    background: #12121a;
-    padding: 10px 14px;
+    background: rgba(18, 18, 26, 0.9);
+    padding: 8px 12px;
     border-radius: 10px;
     border: 1px solid #1e1e30;
-    min-width: 120px;
+    min-width: 100px;
   }
-  label {
-    font-size: 0.75rem;
+  .control-group label {
+    font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 1px;
     color: #666;
   }
   input[type="range"] {
     -webkit-appearance: none;
-    width: 120px;
-    height: 6px;
+    width: 100px;
+    height: 5px;
     border-radius: 3px;
     background: #1e1e30;
     outline: none;
   }
   input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     background: #536dfe;
     cursor: pointer;
@@ -263,27 +266,29 @@
   }
   input[type="color"] {
     -webkit-appearance: none;
-    width: 40px;
-    height: 32px;
+    width: 36px;
+    height: 28px;
     border: 2px solid #1e1e30;
-    border-radius: 8px;
+    border-radius: 7px;
     cursor: pointer;
     background: none;
     padding: 2px;
   }
   input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
-  input[type="color"]::-webkit-color-swatch { border: none; border-radius: 5px; }
+  input[type="color"]::-webkit-color-swatch { border: none; border-radius: 4px; }
   .val {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: #e0e0e0;
     font-family: 'Courier New', monospace;
   }
-  button {
-    padding: 10px 24px;
+
+  /* ── Buttons ── */
+  button.ctrl-btn {
+    padding: 8px 18px;
     border: none;
-    border-radius: 10px;
-    font-size: 0.9rem;
+    border-radius: 9px;
+    font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
@@ -303,7 +308,7 @@
     background: linear-gradient(135deg, #536dfe, #64ffda);
     color: #0a0a0f;
   }
-  #drawBtn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(83, 109, 254, 0.3); }
+  #drawBtn:hover { transform: scale(1.04); box-shadow: 0 0 16px rgba(83, 109, 254, 0.3); }
   #drawBtn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
   #resetBtn {
     background: #1e1e30;
@@ -311,12 +316,12 @@
     border: 1px solid #2a2a40;
   }
   #resetBtn:hover { background: #2a2a40; }
+
+  /* ── Progress ── */
   .progress-bar {
     width: 100%;
     height: 3px;
     background: #12121a;
-    margin: 0 16px 8px;
-    max-width: 700px;
     border-radius: 2px;
     overflow: hidden;
   }
@@ -326,91 +331,107 @@
     background: linear-gradient(90deg, #536dfe, #64ffda);
     transition: width 0.1s linear;
   }
-  footer {
-    padding: 8px;
-    font-size: 0.7rem;
-    color: #333;
+
+  /* ── Responsive ── */
+  @media (max-width: 800px) {
+    .app {
+      flex-direction: column;
+      align-items: stretch;
+      overflow-y: auto;
+      height: auto;
+      min-height: 100vh;
+    }
+    .sidebar {
+      width: 100%;
+      max-height: none;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .sidebar .panel { flex: 1; min-width: 260px; }
   }
 </style>
 </head>
 <body>
-<header>
-  <h1>Dragon Curve Fractal Generator</h1>
-  <p class="subtitle">Explore the self-similar beauty of the Heighway dragon</p>
-  <div class="stats">
-    Iteration: <span id="iterDisplay">0</span> &nbsp;|&nbsp;
-    Segments: <span id="segDisplay">0</span> &nbsp;|&nbsp;
-    Angle: <span id="angleDisplay">90</span>°
-  </div>
-</header>
+<div class="app">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Title -->
+    <div class="panel title-block">
+      <h1>Dragon Curve Fractal</h1>
+      <p class="subtitle">Explore self-similar beauty</p>
+      <div class="stats">
+        Iter: <span id="iterDisplay">0</span> ·
+        Segs: <span id="segDisplay">0</span> ·
+        Angle: <span id="angleDisplay">90</span>°
+      </div>
+    </div>
 
-<!-- Pattern Editor Panel -->
-<div id="patternPanel">
-  <!-- Fold Angle -->
-  <div class="pe-section">
-    <span class="pe-label">Fold Angle</span>
-    <div class="pe-row">
-      <input type="range" id="angleSlider" min="1" max="179" value="90" style="flex:1; min-width: 150px;">
-      <span class="pe-angle-val" id="angleVal">90°</span>
+    <!-- Pattern Editor -->
+    <div class="panel" id="patternPanel" style="display:none;">
+      <h2>⚙ Pattern Mode</h2>
+
+      <!-- Fold Angle -->
+      <div class="pe-section">
+        <span class="pe-label">Fold Angle</span>
+        <div class="pe-row">
+          <input type="range" id="angleSlider" min="1" max="179" value="90" style="flex:1; min-width: 120px;">
+          <span class="pe-angle-val" id="angleVal">90°</span>
+        </div>
+      </div>
+
+      <!-- Turn Sequence -->
+      <div class="pe-section">
+        <span class="pe-label">Turn Sequence</span>
+        <div class="pe-seq-wrap" id="turnSeqWrap"></div>
+      </div>
+
+      <!-- Presets -->
+      <div class="pe-section">
+        <span class="pe-label">Presets</span>
+        <div class="pe-presets" id="presetsRow"></div>
+      </div>
+
+      <!-- Preview -->
+      <div class="pe-section">
+        <div class="pe-preview-area">
+          <canvas id="previewCanvas" width="264" height="176"></canvas>
+          <div class="pe-preview-info">
+            <div class="pe-detail" id="previewDetail">Angle: 90° | Seq: [R]</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Turn Sequence -->
-  <div class="pe-section">
-    <span class="pe-label">Turn Sequence</span>
-    <div class="pe-seq-wrap" id="turnSeqWrap"></div>
-  </div>
-
-  <!-- Presets -->
-  <div class="pe-section">
-    <span class="pe-label">Presets</span>
-    <div class="pe-presets" id="presetsRow"></div>
-  </div>
-
-  <!-- Preview + Apply -->
-  <div class="pe-section">
-    <div class="pe-preview-area">
-      <canvas id="previewCanvas" width="360" height="240"></canvas>
-      <div style="flex:1; display:flex; flex-direction:column; justify-content:space-between;">
-        <div class="pe-preview-info">
-          <div>Preview @ iter 4</div>
-          <div class="pe-detail" id="previewDetail">Angle: 90° | Seq: [R]</div>
-        </div>
-        <button id="applyBtn">Apply →</button>
+  <!-- Main area -->
+  <div class="main-area">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div id="canvas-wrap">
+      <canvas id="canvas"></canvas>
+    </div>
+    <div class="controls-row">
+      <div class="control-group">
+        <label>Iterations</label>
+        <input type="range" id="iterSlider" min="1" max="20" value="10">
+        <div class="val" id="iterVal">10</div>
+      </div>
+      <div class="control-group">
+        <label>Speed</label>
+        <input type="range" id="speedSlider" min="1" max="50" value="15">
+        <div class="val" id="speedVal">15</div>
+      </div>
+      <div class="control-group">
+        <label>Color</label>
+        <input type="color" id="colorPicker" value="#64ffda">
+      </div>
+      <div class="control-group" style="flex-direction:row; gap:8px; align-self:flex-end;">
+        <button class="ctrl-btn" id="patternToggle">⚙ Pattern</button>
+        <button class="ctrl-btn" id="drawBtn">▶ Draw</button>
+        <button class="ctrl-btn" id="resetBtn">↺ Reset</button>
       </div>
     </div>
   </div>
 </div>
-
-<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-
-<div id="canvas-wrap">
-  <canvas id="canvas"></canvas>
-</div>
-
-<div class="controls">
-  <div class="control-group">
-    <label>Iterations</label>
-    <input type="range" id="iterSlider" min="1" max="20" value="10">
-    <div class="val" id="iterVal">10</div>
-  </div>
-  <div class="control-group">
-    <label>Speed</label>
-    <input type="range" id="speedSlider" min="1" max="50" value="15">
-    <div class="val" id="speedVal">15</div>
-  </div>
-  <div class="control-group">
-    <label>Color</label>
-    <input type="color" id="colorPicker" value="#64ffda">
-  </div>
-  <div class="control-group" style="flex-direction:row; gap:8px; align-self:flex-end;">
-    <button id="patternToggle">⚙ Pattern Mode</button>
-    <button id="drawBtn">▶ Draw</button>
-    <button id="resetBtn">↺ Reset</button>
-  </div>
-</div>
-
-<footer>Built with Canvas API • No external dependencies</footer>
 
 <script>
 (() => {
@@ -430,7 +451,7 @@
   const drawBtn = document.getElementById('drawBtn');
   const resetBtn = document.getElementById('resetBtn');
 
-  // Pattern editor elements
+  // Pattern editor
   const patternPanel = document.getElementById('patternPanel');
   const patternToggle = document.getElementById('patternToggle');
   const angleSlider = document.getElementById('angleSlider');
@@ -440,7 +461,6 @@
   const previewCanvas = document.getElementById('previewCanvas');
   const previewCtx = previewCanvas.getContext('2d');
   const previewDetail = document.getElementById('previewDetail');
-  const applyBtn = document.getElementById('applyBtn');
 
   let animId = null;
   let turns = [];
@@ -449,11 +469,8 @@
   // Pattern state
   let patternMode = false;
   let foldAngle = 90;
-  let baseTurns = [1]; // 1 = right, -1 = left
-  let appliedAngle = 90;
-  let appliedBaseTurns = [1];
+  let baseTurns = [1]; // 1=right, -1=left
 
-  // Presets
   const presets = [
     { name: '🐉 Dragon', angle: 90, turns: [1] },
     { name: '🌿 Fern', angle: 60, turns: [1, -1] },
@@ -462,14 +479,18 @@
   ];
 
   function resizeCanvas() {
-    const w = Math.min(window.innerWidth - 32, 800);
-    const h = Math.min(w, 600);
+    const mainArea = document.querySelector('.main-area');
+    const controlsRow = document.querySelector('.controls-row');
+    const availW = mainArea.clientWidth - 20;
+    const availH = mainArea.clientHeight - controlsRow.offsetHeight - 40;
+    const size = Math.min(availW, availH, 900);
+    const w = Math.max(400, size);
+    const h = Math.max(300, Math.round(w * 0.75));
     canvas.width = w * 2;
     canvas.height = h * 2;
     canvas.style.width = w + 'px';
     canvas.style.height = h + 'px';
     wrap.style.width = w + 'px';
-    wrap.style.maxWidth = '100%';
   }
 
   function computeTurns(n, baseSeq, angle) {
@@ -486,7 +507,7 @@
   function computeSegments(turnsArr, angleDeg) {
     const segs = [];
     let x = 0, y = 0;
-    let angle = 0; // radians, 0 = right
+    let angle = 0;
     const rad = angleDeg * Math.PI / 180;
     let x2 = x + 1, y2 = y;
     segs.push({ x1: x, y1: y, x2, y2 });
@@ -517,10 +538,11 @@
   }
 
   function hexToRgb(hex) {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    return { r, g, b };
+    return {
+      r: parseInt(hex.slice(1, 3), 16),
+      g: parseInt(hex.slice(3, 5), 16),
+      b: parseInt(hex.slice(5, 7), 16),
+    };
   }
 
   function clear() {
@@ -530,8 +552,22 @@
     progressFill.style.width = '0%';
   }
 
-  function drawStatic(segs, color) {
-    const b = getBounds(segs);
+  // Auto-redraw: compute + draw final result instantly (no animation)
+  function autoRedraw() {
+    clear();
+    const iter = parseInt(iterSlider.value);
+    const color = colorPicker.value;
+    const angle = patternMode ? foldAngle : 90;
+    const baseSeq = patternMode ? baseTurns : [1];
+
+    turns = computeTurns(iter, baseSeq, angle);
+    fullSegments = computeSegments(turns, angle);
+    angleDisplay.textContent = angle;
+    segDisplay.textContent = fullSegments.length.toLocaleString();
+    iterDisplay.textContent = turns.length;
+    progressFill.style.width = '100%';
+
+    const b = getBounds(fullSegments);
     const pad = 20;
     const w = canvas.width - pad * 2;
     const h = canvas.height - pad * 2;
@@ -550,7 +586,7 @@
     ctx.shadowBlur = 4;
 
     ctx.beginPath();
-    for (const s of segs) {
+    for (const s of fullSegments) {
       ctx.moveTo(s.x1 * scale + offX, s.y1 * scale + offY);
       ctx.lineTo(s.x2 * scale + offX, s.y2 * scale + offY);
     }
@@ -637,7 +673,7 @@
     animId = requestAnimationFrame(frame);
   }
 
-  // ── Preview drawing ──
+  // ── Preview ──
   function drawPreview(angle, turns) {
     const segs = computeSegments(computeTurns(4, turns, angle), angle);
     const b = getBounds(segs);
@@ -666,7 +702,7 @@
     previewDetail.textContent = `Angle: ${angle}° | Seq: [${turns.map(t => t === 1 ? 'R' : 'L').join(', ')}]`;
   }
 
-  // ── Turn sequence rendering ──
+  // ── Turn sequence ──
   function renderTurnSequence() {
     turnSeqWrap.innerHTML = '';
     baseTurns.forEach((t, i) => {
@@ -677,11 +713,11 @@
         baseTurns[i] = baseTurns[i] === 1 ? -1 : 1;
         renderTurnSequence();
         updatePreview();
+        autoRedraw();
       });
       turnSeqWrap.appendChild(btn);
     });
 
-    // Add button
     const addBtn = document.createElement('button');
     addBtn.className = 'pe-add';
     addBtn.textContent = '+';
@@ -689,10 +725,10 @@
       baseTurns.push(1);
       renderTurnSequence();
       updatePreview();
+      autoRedraw();
     });
     turnSeqWrap.appendChild(addBtn);
 
-    // Remove button
     if (baseTurns.length > 1) {
       const removeBtn = document.createElement('button');
       removeBtn.className = 'pe-remove';
@@ -701,12 +737,13 @@
         baseTurns.pop();
         renderTurnSequence();
         updatePreview();
+        autoRedraw();
       });
       turnSeqWrap.appendChild(removeBtn);
     }
   }
 
-  // ── Presets rendering ──
+  // ── Presets ──
   function renderPresets() {
     presetsRow.innerHTML = '';
     presets.forEach(p => {
@@ -720,12 +757,12 @@
         angleVal.textContent = foldAngle + '°';
         renderTurnSequence();
         updatePreview();
+        autoRedraw();
       });
       presetsRow.appendChild(btn);
     });
   }
 
-  // ── Preview update ──
   function updatePreview() {
     drawPreview(foldAngle, baseTurns);
   }
@@ -733,51 +770,45 @@
   // ── Pattern toggle ──
   patternToggle.addEventListener('click', () => {
     patternMode = !patternMode;
-    patternPanel.classList.toggle('visible', patternMode);
+    patternPanel.style.display = patternMode ? 'block' : 'none';
     patternToggle.classList.toggle('active', patternMode);
     if (!patternMode) {
-      // Revert to defaults
       foldAngle = 90;
       baseTurns = [1];
       angleSlider.value = 90;
       angleVal.textContent = '90°';
       renderTurnSequence();
       updatePreview();
-      angleDisplay.textContent = '90';
     }
+    resizeCanvas();
   });
 
-  // ── Angle slider ──
+  // ── Angle slider (auto-redraw, debounced) ──
+  let redrawTimer = null;
   angleSlider.addEventListener('input', () => {
     foldAngle = parseInt(angleSlider.value);
     angleVal.textContent = foldAngle + '°';
     updatePreview();
+    clearTimeout(redrawTimer);
+    redrawTimer = setTimeout(() => autoRedraw(), 200);
   });
 
-  // ── Apply button ──
-  applyBtn.addEventListener('click', () => {
-    appliedAngle = foldAngle;
-    appliedBaseTurns = baseTurns.slice();
-    angleDisplay.textContent = appliedAngle;
-    applyBtn.classList.add('applied');
-    applyBtn.textContent = '✓ Applied';
-    setTimeout(() => {
-      applyBtn.classList.remove('applied');
-      applyBtn.textContent = 'Apply →';
-    }, 1500);
-  });
+  // ── Auto-redraw on main slider/color changes too ──
+  iterSlider.addEventListener('change', () => { autoRedraw(); });
+  colorPicker.addEventListener('input', () => { autoRedraw(); });
 
-  // ── Init pattern editor ──
+  // ── Init ──
   renderTurnSequence();
   renderPresets();
   updatePreview();
 
+  // ── Draw (uses current pattern settings when in pattern mode) ──
   function start() {
     const iter = parseInt(iterSlider.value);
     const speed = parseInt(speedSlider.value);
     const color = colorPicker.value;
-    const angle = patternMode ? appliedAngle : 90;
-    const baseSeq = patternMode ? appliedBaseTurns : [1];
+    const angle = patternMode ? foldAngle : 90;
+    const baseSeq = patternMode ? baseTurns : [1];
 
     clear();
     turns = computeTurns(iter, baseSeq, angle);
@@ -798,8 +829,7 @@
     clear();
     iterDisplay.textContent = '0';
     segDisplay.textContent = '0';
-    angleDisplay.textContent = patternMode ? appliedAngle : '90';
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    angleDisplay.textContent = patternMode ? foldAngle : '90';
   });
 
   window.addEventListener('resize', resizeCanvas);
